@@ -120,9 +120,13 @@ Tool: **IGV & Venn Diagram**
 ### Assembly   
 1. Reference-based assembly
 Tool: **bcftools consensus**  
-    Generated consensus genome by applying variants to reference FASTA
+    Generated consensus genome by applying variants to reference FASTA (used LoFreq results due to its higher coverage and accuracy)
+   neglected "Mask" option since I had already dismissed low quality/coverage regions in LoFreq
     
 
-2. De novo assembly
+3. De novo assembly
 Tool: **SPAdes**  
-    De novo assembly of trimmed reads (likely metaSPAdes or virus mode).
+    De novo assembly of trimmed reads.
+   parameters explained:
+   Operation mode was set as "assembly and error correction
+   k-mer detection option and Phred quality offset were set as auto
