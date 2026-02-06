@@ -117,11 +117,11 @@ Tool: **IGV & Venn Diagram**
     Filtered "position" field from VarScan mpileup output for drawing Venn Diagram.
 
   
-### Assembly   
+### 5. Assembly   
 1. Reference-based assembly
 Tool: **bcftools consensus**  
-    Generated consensus genome by applying variants to reference FASTA (used LoFreq results due to its higher coverage and accuracy)
-   neglected "Mask" option since I had already dismissed low quality/coverage regions in LoFreq
+    - Generated consensus genome by applying variants to reference FASTA (used LoFreq results due to its higher coverage and accuracy)
+    - Neglected "Mask" option since I had already dismissed low quality/coverage regions in LoFreq
     
 
 3. De novo assembly
@@ -130,3 +130,42 @@ Tool: **SPAdes**
    parameters explained:
    Operation mode was set as "assembly and error correction
    k-mer detection option and Phred quality offset were set as auto
+
+
+### 6. Validation of De Novo Assembly
+1. **QUAST**
+The presence of one major long contig of 11,861 bp (the only one ≥10 kb) strongly suggests successful reconstruction of the full-length viral genome.
+[View full QUAST report](reports/Quast_on_dataset_56__HTML_report_html.html)  
+- **Number of contigs**:
+  - ≥ 0 bp: 13,037
+  - ≥ 1,000 bp: 1,273
+  - ≥ 5,000 bp: 13
+  - ≥ 10,000 bp: 1
+
+- **Largest contig**: 11,861 bp
+
+- **Total assembly length**:
+  - ≥ 0 bp: 8,017,410 bp
+  - ≥ 1,000 bp: 1,976,318 bp
+  - ≥ 5,000 bp: 89,319 bp
+  - ≥ 10,000 bp: 11,861 bp
+
+- **N50**: 845 bp  
+  **L50**: 1,829  
+  **N90**: 538 bp  
+  **L90**: 4,876
+
+- **GC content**: 44.95%  
+- **# N's**: 0
+
+  
+2. **MegaBLAST**
+Perfect match (100% identity, full coverage) to BYMV isolate Aus14BY (LC500882.1).
+The de novo contig shows perfect (100%) identity over its entire length (11,861 bp) to a modern Australian BYMV isolate from lentil (LC500882.1), confirming near-exact reconstruction of a real viral genome.
+No strong hits to non-BYMV sequences (e.g., host Pisum sativum DNA or other potyviruses like Clover yellow vein virus ~72%) in top alignments indicate minimal misassembly or foreign contamination in the major contig.
+
+
+
+
+
+Despite severe host rRNA contamination and low viral RNA load (reflected in low mapping rate to reference and many short contigs), the combined reference-based (BWA-MEM2 + LoFreq/VarScan + bcftools consensus) and de novo (SPAdes) approaches successfully reconstructed a near-complete, high-quality BYMV genome.
